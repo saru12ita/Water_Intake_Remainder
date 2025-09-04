@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:water_intake_remainder/Screens/HomePage.dart';
 import 'package:water_intake_remainder/app_styles.dart';
 import 'package:water_intake_remainder/model/onboard_data.dart';
 import 'package:water_intake_remainder/size_configs.dart';
@@ -12,16 +13,17 @@ class OnBoardingPage extends StatefulWidget {
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
   int currentPage = 0;
-  PageController _pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController(initialPage: 0);
 
   AnimatedContainer dotIndicator(index) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 400),
-      height: 12,
-      width: 12,
+      duration: const Duration(milliseconds: 400),
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      height: 10,
+      width: currentPage == index ? 20 : 10,
       decoration: BoxDecoration(
         color: currentPage == index ? kPrimaryColor : kSecondaryColor,
-        shape: BoxShape.circle,
+        borderRadius: BorderRadius.circular(20),
       ),
     );
   }
@@ -47,58 +49,98 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   });
                 },
                 itemCount: onboardingContents.length,
-                itemBuilder:
-                    (context, index) => Column(
-                      children: [
-                        SizedBox(height: sizeV * 5),
-                        Text(
-                          onboardingContents[index].title,
-                          style: kTitle,
-                          textAlign: TextAlign.center,
+                itemBuilder: (context, index) => Padding(
+                  padding: EdgeInsets.symmetric(horizontal: sizeH * 5),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        onboardingContents[index].title,
+                        style: kTitle,
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: sizeV * 4),
+                      SizedBox(
+                        height: sizeV * 40,
+                        child: Image.asset(
+                          onboardingContents[index].image,
+                          fit: BoxFit.contain,
                         ),
-                        SizedBox(height: sizeV * 5),
-                        Container(
-                          height: sizeV = 50,
-                          child: Image.asset(
-                            onboardingContents[index].image,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        SizedBox(height: sizeV * 5),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            style: kBodyText1,
-                            children: [
-                              TextSpan(
-                                text: "Let's Remind ",
-                                style: TextStyle(color: kPrimaryColor),
-                              ),
-                              TextSpan(text: "us"),
-                              TextSpan(text: "to drink"),
-                              TextSpan(text: "water"),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: sizeV *5),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: sizeV * 4),
+                      Text(
+                        onboardingContents[index].description,
+                        style: kBodyText1,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
+
             Expanded(
               flex: 1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text('Skip'),
-                  Row(
-                    children: List.generate(
-                      onboardingContents.length,
-                      (index) => dotIndicator(index),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: sizeH * 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    currentPage != onboardingContents.length - 1
+                        ? TextButton(
+                            onPressed: () {
+                              _pageController.jumpToPage(
+                                  onboardingContents.length - 1);
+                            },
+                            child: const Text("Skip"),
+                          )
+                        : const SizedBox(width: 60),
+
+                    Row(
+                      children: List.generate(
+                        onboardingContents.length,
+                        (index) => dotIndicator(index),
+                      ),
                     ),
-                  ),
-                  Text('Next'),
-                ],
+
+                    currentPage == onboardingContents.length - 1
+                        ? ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: kPrimaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: sizeH * 5,
+                                vertical: sizeV * 1.5,
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>  HomePage(),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              "Get Started",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 16),
+                            ),
+                          )
+                        : TextButton(
+                            onPressed: () {
+                              _pageController.nextPage(
+                                duration:
+                                    const Duration(milliseconds: 400),
+                                curve: Curves.easeInOut,
+                              );
+                            },
+                            child: const Text("Next"),
+                          ),
+                  ],
+                ),
               ),
             ),
           ],
