@@ -12,23 +12,24 @@ class OnBoarding {
 
 List<OnBoarding> onboardingContents = [
   OnBoarding(
-    title: 'Welcome to\nMonumental Habits',
-    description: 'Start building life-changing habits today.',
+    title: 'Welcome to\nHydroMate',
+    description: 'Your smart companion to stay hydrated every day.',
     image: 'assets/images/photo1.png',
   ),
   OnBoarding(
-    title: 'Create new habits easily',
-    description: 'Set reminders and track your goals effortlessly.',
+    title: 'Set Water Reminders',
+    description:
+        'Get timely alerts to drink water and build a healthy routine.',
     image: 'assets/images/photo2.png',
   ),
   OnBoarding(
-    title: 'Keep track of your progress',
-    description: 'See your journey and celebrate small wins.',
+    title: 'Track Your Hydration',
+    description: 'Log every sip and see how close you are to your daily goal.',
     image: 'assets/images/photo3.png',
   ),
   OnBoarding(
-    title: 'Join a supportive community',
-    description: 'Stay motivated with people sharing your journey.',
+    title: 'Stay Refreshed, Stay Healthy',
+    description: 'Hydration keeps you energized, focused, and at your best.',
     image: 'assets/images/photo4.png',
   ),
 ];
