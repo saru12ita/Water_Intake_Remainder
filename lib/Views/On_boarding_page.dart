@@ -209,7 +209,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                         ),
                         const SizedBox(height: 30),
 
-                        // Subtitle with different colors (RichText)
+                        // Subtitle (fixed for now)
                         RichText(
                           textAlign: TextAlign.center,
                           text: const TextSpan(
@@ -239,36 +239,89 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                         ),
                         const SizedBox(height: 40),
 
-                        // Button
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.orange,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            onPressed: () {
-                              // Navigate to next screen
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const NextScreen(),
+                        // Footer (different for last screen vs others)
+                        if (_currentPage == onboardingContents.length - 1)
+                          // ✅ Show Get Started only on last page
+                          SizedBox(
+                            width: double.infinity,
+                            height: 50,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.orange,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                              );
-                            },
-                            child: const Text(
-                              "Get Started",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                              ),
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const NextScreen(),
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                "Get Started",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
+                          )
+                        else
+                          // ✅ Show Skip + dots + Next on other pages
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  _pageController.jumpToPage(
+                                      onboardingContents.length - 1);
+                                },
+                                child: const Text(
+                                  "Skip",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                children: List.generate(
+                                  onboardingContents.length,
+                                  (index) => Container(
+                                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                                    width: _currentPage == index ? 12 : 8,
+                                    height: _currentPage == index ? 12 : 8,
+                                    decoration: BoxDecoration(
+                                      color: _currentPage == index
+                                          ? Colors.orange
+                                          : Colors.grey,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  _pageController.nextPage(
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeIn,
+                                  );
+                                },
+                                child: const Text(
+                                  "Next",
+                                  style: TextStyle(
+                                    color: Colors.orange,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
                         const SizedBox(height: 20),
                       ],
                     ),
