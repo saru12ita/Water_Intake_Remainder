@@ -1,0 +1,49 @@
+name: water_intake_remainder
+description: "A new Flutter project."
+
+publish_to: 'none' 
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.2
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^6.3.1 # to use google fonts
+  shared_preferences: ^2.5.3 # to save data to device we use this to load onboard for first time only
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_native_splash: ^2.4.6
+
+
+flutter_native_splash:
+ background_image: "assets/image/splash_image.png"
+ android: true
+ ios : true
+ android_gravity: center
+ ios_content_mode: center
+ fullscreen: true
+ 
+
+
+
+
+
+
+
+
+flutter:
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Klasik
+      fonts:
+        - asset: assets/fonts/Klasik Regular.otf
