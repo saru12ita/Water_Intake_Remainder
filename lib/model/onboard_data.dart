@@ -11,18 +11,18 @@ class OnBoarding {
 List<OnBoarding> onboardingContents = [
   OnBoarding(
     title: 'Welcome to\n Monumental habits',
-    image: 'assets/images/onboarding_image_1.png',
+    image: 'assets/images/photo1.png',
   ),
   OnBoarding(
     title: 'Create new habits easily',
-    image: 'assets/images/onboarding_image_2.png',
+    image: 'assets/images/photo2.png',
   ),
   OnBoarding(
     title: 'Keep track of your progress',
-    image: 'assets/images/onboarding_image_3.png',
+    image: 'assets/images/photo3.png',
   ),
   OnBoarding(
     title: 'Join a supportive community',
-    image: 'assets/images/onboarding_image_4.png',
+    image: 'assets/images/photo4.png',
   ),
 ];

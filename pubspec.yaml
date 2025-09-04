@@ -21,13 +21,13 @@ dev_dependencies:
 
 
 flutter_native_splash:
- background_image: "assets/image/splash_image.png"
+ background_image: "assets/images/photo2.png"
  android: true
  ios : true
  android_gravity: center
  ios_content_mode: center
  fullscreen: true
- 
+
 
 
 
